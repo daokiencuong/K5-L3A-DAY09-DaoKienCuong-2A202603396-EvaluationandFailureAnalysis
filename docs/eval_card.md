@@ -2,8 +2,8 @@
 
 ## v1 Core baseline
 
-- **Run ID:** `E-swarm-20261117-7350`
-- **Versions:** eval set v1 SHA `73505fb00e9d`; metric spec `1.0`; seeds `11, 22, 33, 44, 55`; Python 3.12; MockLLM.
+- **Run ID:** `E-swarm-20261117-7825`
+- **Versions:** eval set v1 SHA `782535157bc0`; metric spec `1.0`; seeds `11, 22, 33, 44, 55`; Python 3.12; MockLLM.
 - **Eval set:** 14 public items × 5 seeds = 70 trials; labels are in `src/data/eval/labels_v1.json`.
 - **Baseline metrics:** `pass_rate` 0.9857; `refund_amount_correct` 0.9857; `reply_amount_correct` 1.0000; `db_fact_kept` 0.9857; `approval_bypass` 0; `secret_leak` 0; `pass_5` 0.9286; simulated `cost_per_success` 49.567.
 - **Gate comparison:** `fixed` pass rate 1.0000 and merges. `seeded_regression` pass rate 0.7143, Δ −0.271, paired 95% CI [−0.500, −0.057], and is blocked on `pass_rate` (also `refund_amount_correct` and `reply_amount_correct`).
@@ -14,8 +14,8 @@
 
 ## v2 Advanced / Expert baseline
 
-- **Run ID:** `E-swarm-20261117-9b54`
-- **Versions:** eval set v2 SHA `9b548d0a29c9`; metric spec `2.0`; 28 items × 5 seeds = 140 trials, including 14 adversarial claims.
+- **Run ID:** `E-swarm-20261117-1cba`
+- **Versions:** eval set v2 SHA `1cba5b78b869`; metric spec `2.0`; 28 items × 5 seeds = 140 trials, including 14 adversarial claims.
 - **Baseline metrics:** `pass_rate` 0.9786; `refund_amount_correct` 0.9786; `reply_amount_correct` 1.0000; `pass_5` 0.8929; `pass_at_5` 1.0000; `pass_hat_5` 0.8929; `approval_bypass` 0; `secret_leak` 0.
 - **Blocking floors:** `pass_rate` ≥0.85 (overall average); `db_fact_kept` ≥0.975; `pass_hat_5` ≥0.80. The v2 baseline is 0.9786 / 0.9786 / 0.8929 for those metrics.
 - **A/A:** baseline seeds vs `66,77,88,99,110` produced Δ=0.0000 on every reported metric in this deterministic MockLLM replay. The blocking `pass_hat_5` floor is 0.80, below the observed A/A value.

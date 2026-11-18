@@ -45,7 +45,17 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def sha12(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()[:12]
+    # Git checkouts and Python's Windows text writer may represent the same
+    # JSONL content with LF or CRLF. Hash canonical LF bytes so a committed
+    # baseline has the same eval-set identity on Windows and Linux.
+    content = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(content).hexdigest()[:12]
+
+
+def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
+    """Write UTF-8 JSONL with explicit LF bytes on every operating system."""
+    content = "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows)
+    path.write_bytes(content.encode("utf-8"))
 
 
 def build(source: Path = SOURCE) -> tuple[int, int]:
@@ -65,7 +75,7 @@ def build(source: Path = SOURCE) -> tuple[int, int]:
         })
         labels[claim["claim_id"]] = claim["expected"]
     ITEMS.parent.mkdir(parents=True, exist_ok=True)
-    ITEMS.write_text("".join(json.dumps(i, ensure_ascii=False) + "\n" for i in items), encoding="utf-8")
+    _write_jsonl(ITEMS, items)
     LABELS.write_text(json.dumps(labels, ensure_ascii=False, indent=2), encoding="utf-8")
     return len(items), len(labels)
 
@@ -107,7 +117,7 @@ def build_v2(items_v1: Path = ITEMS, labels_v1: Path = LABELS, pack: Path = PACK
             "slices": slices_for(claim["expected"], True),
         })
         labels[claim["claim_id"]] = claim["expected"]
-    ITEMS_V2.write_text("".join(json.dumps(i, ensure_ascii=False) + "\n" for i in items), encoding="utf-8")
+    _write_jsonl(ITEMS_V2, items)
     LABELS_V2.write_text(json.dumps(labels, ensure_ascii=False, indent=2), encoding="utf-8")
     return len(items), len(labels)
 

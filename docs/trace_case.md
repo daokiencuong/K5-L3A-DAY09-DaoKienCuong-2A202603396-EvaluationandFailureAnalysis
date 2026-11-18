@@ -12,7 +12,7 @@ Lệnh in ra ba phần: các event trong trace (`reply`, `decision`, `model_over
 
 ## Case đã phân tích: `seeded_regression C-002@55`
 
-- **Trial:** `seeded_regression C-002@55`, eval set v1 `73505fb00e9d`.
+- **Trial:** `seeded_regression C-002@55`, eval set v1 `782535157bc0`.
 - **Triệu chứng:** Lab 8 grader báo `status resolved != denied`; agent ghi hoàn 20.000đ dù label yêu cầu 0đ.
 - **Bước sai đầu tiên:** event 3 `model_override`, payload `delay_days=5`. Event 2 vừa đọc DB và cho thấy order O-202 trễ 2 ngày; ticket không được ghi đè fact này.
 - **Vì sao là bước đầu tiên:** handoff và investigator trước event 3 đều thuộc luồng đọc; quote 20.000đ, refund history và reply 20.000đ là hệ quả sau override.
