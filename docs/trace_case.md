@@ -4,8 +4,8 @@ Một trace case trả lời một câu: **bước nào là bước sai đầu t
 
 ```bash
 cd src
-python -m lab9.trace_case --shape seeded_regression --claim C-002 --seed 11
-python -m lab9.trace_case --shape fixed --claim C-002 --seed 11   # đối chứng
+python -m lab9.trace_case --shape seeded_regression --claim C-002 --seed 55
+python -m lab9.trace_case --shape fixed --claim C-002 --seed 55   # đối chứng
 ```
 
 Lệnh in ra ba phần: các event trong trace (`reply`, `decision`, `model_override`, `error` …), ledger so với nhãn, và lý do của grader Lab 8.
